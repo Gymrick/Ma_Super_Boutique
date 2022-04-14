@@ -3,19 +3,19 @@
 
     <div class="row">
         <div class="col 6">
-            <h6 class="text-info text-center">Serch by price range</h6>
+            <h6 class="text-info text-center">Search by price range</h6>
 
             <!-- Début formulaire price range -->
-            <form>
+            <form  (ngSubmit)="filterByPrice(search)" #search="ngForm">
                 <div class="row">
                     <div class="col-4">
                         <div class="form-group">
-                            <input type="number" class="form-control" placeholder="Entrer le prix min">
+                            <input type="number" name="min" class="form-control" ngModel placeholder="Entrer le prix min">
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                            <input type="number" class="form-control" placeholder="Entrer le prix max">
+                            <input type="number" name="max" class="form-control" ngModel placeholder="Entrer le prix max">
                         </div>
                     </div>
                     <div class="col-4">
@@ -27,7 +27,7 @@
         </div>
 
         <div class="col 6">
-            <h6 class="text-info text-center">Serch by keyword</h6>
+            <h6 class="text-info text-center">Search by keyword</h6>
 
             <!-- Début formulaire keyword -->
             <form>

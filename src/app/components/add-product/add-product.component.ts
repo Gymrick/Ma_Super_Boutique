@@ -16,7 +16,7 @@ export class AddProductComponent implements OnInit {
   // Méthode d'enregistrement de produit
   addProduct(product: any){
     //let data = product.value
-    this.ps.addNewProduct(product.value).subscribe( () => {
+    this.ps.addProductService(product.value).subscribe( () => {
       console.log('saved success!')
     });
   }
