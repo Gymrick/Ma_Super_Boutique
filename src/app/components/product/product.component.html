@@ -1,0 +1,70 @@
+<div class="container">
+    <h1 class="text-center text-warning mt-3 mb-3">Liste de nos produits : {{products.length}}</h1>
+
+    <div class="row">
+        <div class="col 6">
+            <h6 class="text-info text-center">Serch by price range</h6>
+
+            <!-- Début formulaire price range -->
+            <form>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <input type="number" class="form-control" placeholder="Entrer le prix min">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <input type="number" class="form-control" placeholder="Entrer le prix max">
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-primary">Filtrer</button>
+                    </div>
+                </div>
+            </form>
+            <!-- Fin formulaire price range -->
+        </div>
+
+        <div class="col 6">
+            <h6 class="text-info text-center">Serch by keyword</h6>
+
+            <!-- Début formulaire keyword -->
+            <form>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Entrer le mot clés">
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-primary">Chercher</button>
+                    </div>
+                </div>
+            </form>
+            <!-- Fin formulaire keyword -->
+        </div>
+    </div>
+
+
+    <section class="row row-cols-1S row-cols-md-3 row-cols-lg-4 g-4 mt-4">
+
+        <div class="text-center text-white pb-4 pt-4 bg-success" *ngIf="show">Votre produit a bien été suprimé!</div>
+
+        <div class="col mb-4" *ngFor="let p of products">
+            <div class="card shadow h-100 ">
+                <img src="{{p.image}}" class="card-img-top" alt="..." style="height: 18rem; object-fit: cover;">
+                <div class="card-body d-flex flex-column justify-content-space-between">
+                    <h5>{{p.title}}</h5>
+                    <p>{{p.description}}</p>
+                    <p class="text-success fw-bold"><span class="fs-4">{{p.price}}</span> €/kg</p>
+                    <p class="fa-solid fs-3" (click)="availability(p.id, p.available)"
+                        [ngClass]="{'text-success fa-thumbs-up': p.available, 'text-danger fa-thumbs-down': !p.available}">
+                    </p>
+                    <button (click)="deleteProduct(p.id)" class="btn btn-danger">supprimer</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>h
