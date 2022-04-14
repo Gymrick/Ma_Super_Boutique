@@ -32,13 +32,18 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  filterByPrice(search:any){
-    console.log(search.value);
+  filterByPrice(search: any){
       this.ps.filterByPriceService(search.value).subscribe( data => {
-      console.log('Filter success !');
+      console.log('Filter by price success !');
       this.products = data;
     });
-
+  }
+  filterByKeyWord(seach: any){
+    console.log(seach.value);
+    this.ps.filterByKeyWordService(seach.value).subscribe( data => {
+      console.log('Filter by keyword success !');
+      this.products = data;
+    })
   }
 
   availability(id: any, available: any){

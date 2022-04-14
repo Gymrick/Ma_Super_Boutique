@@ -31,4 +31,9 @@ export class ProductsService {
     return this.http.get("http://localhost:3000/products?price_gte="+priceMin+"&price_lte="+priceMax);
   }
 
+  filterByKeyWordService(data: any){
+    let word = data.word; 
+    return this.http.get("http://localhost:3000/products?q="+word);
+  }
+
 }
