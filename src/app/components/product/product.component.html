@@ -2,20 +2,22 @@
     <h1 class="text-center text-warning mt-3 mb-4">Liste de nos produits : {{products.length}}</h1>
 
     <div class="row">
-        <div class="col 6">
+        <div class="col-6">
             <h6 class="text-info">Recherche par prix</h6>
 
             <!-- Début formulaire price range -->
-            <form  (ngSubmit)="filterByPrice(search)" #search="ngForm">
+            <form (ngSubmit)="filterByPrice(search)" #search="ngForm">
                 <div class="row">
                     <div class="col-4">
                         <div class="form-group">
-                            <input type="number" name="min" class="form-control" ngModel placeholder="Entrer le prix min">
+                            <input type="number" name="min" class="form-control" ngModel
+                                placeholder="Entrer le prix min">
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="form-group">
-                            <input type="number" name="max" class="form-control" ngModel placeholder="Entrer le prix max">
+                            <input type="number" name="max" class="form-control" ngModel
+                                placeholder="Entrer le prix max">
                         </div>
                     </div>
                     <div class="col-4">
@@ -24,9 +26,10 @@
                 </div>
             </form>
             <!-- Fin formulaire price range -->
+
         </div>
 
-        <div class="col 6">
+        <div class="col-6">
             <h6 class="text-info">Recherche par mot-clé</h6>
 
             <!-- Début formulaire keyword -->
@@ -43,13 +46,14 @@
                 </div>
             </form>
             <!-- Fin formulaire keyword -->
+
         </div>
     </div>
 
+    <div class="text-center text-white fw-bold bg-success pb-4 pt-4 mt-4" *ngIf="show">Votre produit a bien été suprimé!
+    </div>
 
-    <section class="row row-cols-1S row-cols-md-3 row-cols-lg-4 g-4 mt-4 p-3">
-
-        <div class="text-center text-white pb-4 pt-4 bg-success" *ngIf="show">Votre produit a bien été suprimé!</div>
+    <section class="row row-cols-1S row-cols-md-3 row-cols-lg-4 bg-light g-4 mt-4 p-4">
 
         <div class="col mb-4" *ngFor="let p of products">
             <div class="card shadow h-100 ">
@@ -57,16 +61,78 @@
                 <div class="card-body d-flex flex-column justify-content-space-between">
                     <h5>{{p.title}}</h5>
                     <p>{{p.description}}</p>
-                    <div class="row">
-                        <div class="text-success fw-bold"><span class="fs-4">{{p.price}}</span> €/kg</div>
-                        <div class="fa-solid fs-4" (click)="availability(p.id, p.available)"
+                    <div class="row align-items-center justify-content-center mb-4">
+                        <div class="col fa-solid fs-4" (click)="availability(p.id, p.available)"
                             [ngClass]="{'text-success fa-thumbs-up': p.available, 'text-danger fa-thumbs-down': !p.available}">
                         </div>
+                        <div class="col ms-auto text-success fw-bold"><span class="fs-4">{{p.price}}</span> €/Kg</div>
                     </div>
-                    <button (click)="deleteProduct(p.id)" class="btn btn-danger fw-bolder">Supprimer</button>
+                    <div class="row">
+                        <div class="col">
+                            <!-- <i (click)="deleteProduct(p.id)" class="fa-solid fa-square-minus fs-4 text-danger"></i> -->
+                            <button (click)="deleteProduct(p.id)"
+                                class="btn btn-danger fw-bolder">Supprimer</button>
+                        </div>
+                        <div class="col">
+                            <!-- Bouton modifier modal pop-up -->
+                            <button (click)="editProducts(p)" type="button" class="btn btn-primary fw-bolder" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                Modifier
+                            </button>
+
+                            <!-- Début pop-up -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modification</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <!-- Formulaire Modification - Début -->
+                                            <form >
+                                                <div class="form-group mb-3">
+                                                    <label class="fw-bolder">Nom</label>
+                                                    <input type="text" class="form-control" name="title"
+                                                        placeholder="Entrer un nom" [(ngModel)]="editProduct.title" required>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label class="fw-bolder">Description</label>
+                                                    <textarea class="form-control" name="description"
+                                                        placeholder="Entrer une description" [(ngModel)]="editProduct.description"  required></textarea>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label class="fw-bolder">Image</label>
+                                                    <input type="text" class="form-control" name="image"
+                                                        placeholder="Entrer le lien d'une image" [(ngModel)]="editProduct.image"  required>
+                                                </div>
+                                                <div class="form-group mb-3">
+                                                    <label class="fw-bolder">Prix</label>
+                                                    <input type="number" class="form-control" name="price"
+                                                        placeholder="Entrer un prix" [(ngModel)]="editProduct.price"  required>
+                                                </div>
+                                            </form>
+                                            <!-- Formulaire Modification - Fin -->
+
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Annuler</button>
+                                            <button (click)="updateProducts()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Sauvegarder</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fin pop-up -->
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </section>
 
-</div>h
+</div>

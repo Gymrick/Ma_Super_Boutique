@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -9,8 +10,10 @@ import { ProductsService } from 'src/app/services/products.service';
 export class ProductComponent implements OnInit {
   products: any;
   show:boolean = false;
+  editProduct: any;
   
-  constructor(private ps: ProductsService) { }
+
+  constructor(private ps: ProductsService, private router: Router) { }
 
   ngOnInit(): void {
     this.getAllProducts();
@@ -24,9 +27,20 @@ export class ProductComponent implements OnInit {
 
   }
 
+  editProducts(product: any){
+    this.editProduct = product; 
+  }
+
+  updateProducts(){
+    this.ps.updateProductService(this.editProduct).subscribe( () => {
+      console.log("Update succed!");  
+      //this.router.navigate([""])
+    })
+  }
+
   deleteProduct(id: any) {
     this.ps.deleteProductService(id).subscribe(() => {
-      console.log("suppression succeed!");
+      console.log("Suppression succeed!");
       this.getAllProducts();
       this.show = true;
     });
@@ -38,6 +52,7 @@ export class ProductComponent implements OnInit {
       this.products = data;
     });
   }
+
   filterByKeyWord(seach: any){
     console.log(seach.value);
     this.ps.filterByKeyWordService(seach.value).subscribe( data => {

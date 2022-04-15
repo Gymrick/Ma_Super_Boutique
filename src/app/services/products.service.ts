@@ -16,6 +16,10 @@ export class ProductsService {
   return this.http.delete("http://localhost:3000/products/"+ id);
   }
 
+ updateProductService(product: any){
+  return this.http.put("http://localhost:3000/products/", product);
+  }
+
   // La méthode post a besoin de 2 parametres: le lien et l'argument
   addProductService(product: any){
     return this.http.post("http://localhost:3000/products", product);
